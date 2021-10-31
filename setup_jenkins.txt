@@ -13,3 +13,48 @@ Step 3: Import key
 	
 Step 4: Install stable jenkins on centos 7
 	sudo yum install jenkins 
+	
+user name I created  - jenkinsadmin
+vmadmin is vmadmin
+==================================================
+install jenkins slave
+create a VM in azure (B1s with 4GB and 8GB SSD) . Install centos
+Now perform foloowing steps
+Login to VM\
+sudo yum update
+sudo yum -y install java-1.8.0-openjdk git
+
+create a user for jenkins to connect to slave and run jobs
+sudo useradd -d /var/lib/jenkins jenkins
+
+generate a key for user by running below cmd
+ssh-keygen
+This command will provide a series of prompts. Feel free to use the defaults. From a security perspective, it may be a good idea to enter a passphrase when prompted, and if you do so make sure you take note of the passphrase you used since you will need it later. This command will output two files: id_rsa and id_rsa.pub. If you’re already familiar with the process of working with ssh keys in Linux, this will be very familiar to you, but if not, don’t worry. I’ll walk you through how to use these keys! By default, these files are located in ~/.ssh/. When you run ssh-keygen, you have the option of specifying another location.
+total 8
+-rw-------. 1 vmadmin vmadmin    0 Oct 31 03:35 authorized_keys
+-rw-r--r--. 1 vmadmin vmadmin  399 Oct 31 04:09 id_rsa.pub
+-rw-------. 1 vmadmin vmadmin 1679 Oct 31 04:09 id_rsa
+
+Add the public key to the authorized_keys file of the jenkins user on the agent node.
+Next, we need to add the public key (the contents of id_rsa.pub) to the authorized_keys file of the jenkins user that we created earlier. This will allow anyone who has the private key (in our case, the Jenkins master) to log in to the agent node as the jenkins user. First, we need to create the directory that the authorized_keys file belongs in, and then we can create the file itself:
+
+sudo mkdir /var/lib/jenkins/.ssh
+
+=========================================================
+Installing Groovy
+========================================================
+Install groovy rpm package:
+
+# yum install groovy
+Files
+Path
+/etc/groovy-starter.conf
+/usr/bin/grape
+/usr/bin/groovy
+/usr/bin/groovyConsole
+/usr/bin/groovyc
+/usr/bin/groovysh
+/usr/bin/java2groovy
+
+========================================================
+For git integration install git plugins for repo and Gitlab

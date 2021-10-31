@@ -1,0 +1,23 @@
+pipeline {
+     agent any
+	 environment {
+        DEPLOY_TO = 'production'
+    }
+     stages {
+		stage('Initialization') {
+            steps {
+                echo "${JAVA_HOME}"
+            }
+        }
+         stage('build step') {
+              steps {
+                 echo "Build stage is running"
+              }
+         }
+		 stage('Deployment') {
+            steps {
+                echo "${DEPLOY_TO}"
+            }
+        }
+     }
+}
