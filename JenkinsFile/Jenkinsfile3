@@ -1,0 +1,20 @@
+#!/usr/bin/env groovy
+pipeline {
+    agent any
+    environment {
+        DEPLOY_TO = 'production'
+    }
+    stages {
+        stage('Welcome Step') {
+            when {
+                allOf {
+                    branch 'master';
+                    environment name: 'DEPLOY_TO', value: 'production'
+                }
+            }
+            steps {
+                echo 'Welcome to LambdaTest'
+            }
+        }
+    }
+}
