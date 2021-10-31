@@ -1,0 +1,24 @@
+pipeline {
+     agent any
+	 environment {
+        DEPLOY_TO = 'production'
+		JAVA_PATH='/usr/lib/jvm/java-11-openjdk-11.0.12.0.7-0.el7_9.x86_64/'
+    }
+     stages {
+		stage('Initialization') {
+            steps {
+                echo "${JAVA_PATH}"
+            }
+        }
+         stage('build step') {
+              steps {
+                 echo "Build stage is running"
+              }
+         }
+		 stage('Deployment') {
+            steps {
+                echo "${DEPLOY_TO}"
+            }
+        }
+     }
+}
